@@ -1,0 +1,88 @@
+// source.cpp
+// Amna Aftab
+// January 31, 2013
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+int main()
+{
+  int ball, cash = 100, menuChoice, bet, odds, betNumber;
+	bool winner = false;
+
+	srand(unsigned int(time(NULL)));		// seeds the random number generator
+
+	// put up the menu
+	cout << "1. Bet on Odd (pays 1:1)" << endl;
+	cout << "2. Bet on Even (pays 1:1)" << endl;
+	cout << "3. Bet on a Number (pays 35:1)" << endl;
+	cout << "Enter Choice: ";
+	cin >> menuChoice;
+	
+	// get a random number
+	ball = rand() % 37;			// [0,37)
+
+	// get amount of bet
+	cout << "Enter Amount of Bet: ";
+	cin >> bet;
+
+	// could they try to bet more than they have?  
+	// we'll come back to this
+
+	if (menuChoice == 1)
+	{
+		// Odd Bet
+		if (ball % 2 != 0 && ball != 0)
+			winner = true;
+
+		odds = 1;
+	} 
+	else if (menuChoice == 2)
+	{
+		// Even Bet
+		if (ball %2 == 0 && ball != 0)
+			winner = true;
+
+		odds = 1;
+	}
+	else if (menuChoice == 3)
+	{
+		// One number Bet
+		cout << "What number are you betting on: ";
+		cin >> betNumber;
+
+		if (ball == betNumber)
+			winner = true;
+
+		odds = 35;
+	}
+
+	// time to settle up
+	cout << "Here's the Spin" << endl;
+	system("pause");
+	cout << "Ball landed on --> " << ball << endl;
+
+	if (winner)
+	{
+		cout << "You won $" << bet * odds << endl;
+
+		// apply to cash variable
+		cash += bet * odds;
+	}
+	else
+	{
+		// they lost
+		cout << "You lost $" << bet << endl;
+
+		// apply to cash variable
+		cash -= bet;
+	}
+
+	cout << "You are leaving with $" << cash << endl;
+	cout << "Thanks for playing ... Responsibly" << endl;
+
+
+
+	return 0;
+}
